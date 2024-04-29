@@ -19,7 +19,7 @@ export class TasksRepository {
   }
 
   async findAll(): Promise<Task[]> {
-    return this.prisma.task.findMany();
+    return this.prisma.task.findMany({ orderBy: { date: 'asc' } });
   }
 
   async findByTitle(title: string): Promise<Task[]> {
