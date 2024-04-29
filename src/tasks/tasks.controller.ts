@@ -22,7 +22,7 @@ export class TasksController {
     return this.tasksService.create(data);
   }
 
-  @Get()
+  @Get('/all')
   findAll(): Promise<Task[]> {
     return this.tasksService.findAll();
   }
@@ -40,7 +40,6 @@ export class TasksController {
   @Get('week')
   async findTasksForThisWeek(): Promise<Task[]> {
     const tasks = await this.tasksService.findTasksForThisWeek();
-    console.log('Controller result:', tasks);
     return tasks;
   }
 

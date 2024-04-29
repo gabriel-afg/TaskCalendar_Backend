@@ -23,7 +23,7 @@ export class TasksRepository {
   }
 
   async findByTitle(title: string): Promise<Task[]> {
-    return this.prisma.task.findMany({ where: { title } });
+    return this.prisma.task.findMany({ where: { title: { contains: title } } });
   }
 
   async findOne(id: string): Promise<Task | null> {
