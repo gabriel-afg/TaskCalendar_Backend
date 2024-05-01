@@ -55,7 +55,7 @@ $ pnpm run test:cov
 ```bash
 # Swagger-ui-endpoint
 
-$ http://localhost:3000/api
+$ http://localhost:3030/api
 ```
 
 ## Support
