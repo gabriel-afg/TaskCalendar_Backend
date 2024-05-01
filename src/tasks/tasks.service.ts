@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TasksRepository } from './tasks.repository';
 import { Task } from './interfaces/task.interface';
-import { TasksNotFoundException } from './exceptions/tasks-not-found.exception';
 import { TaskIdNotFoundException } from './exceptions/task-id-not-found.exception';
-import { TaskTitleNotFoundException } from './exceptions/task-title-not-found.exception';
-import { TasksForTodayNotFoundException } from './exceptions/tasks-for-today-not-found.exception';
-import { TasksForThisWeekNotFoundException } from './exceptions/tasks-for-this-week-not-found.exception';
-import { TasksForThisMonthNotFoundException } from './exceptions/tasks-for-this-month-not-found.exception';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
@@ -20,18 +15,12 @@ export class TasksService {
 
   async findAll(): Promise<Task[]> {
     const tasks = await this.tasksRepository.findAll();
-    if (!tasks.length) {
-      throw new TasksNotFoundException();
-    }
-    return tasks;
+    return tasks.length ? tasks : [];
   }
 
   async findByTitle(title: string): Promise<Task[]> {
     const tasks = await this.tasksRepository.findByTitle(title);
-    if (!tasks.length) {
-      throw new TaskTitleNotFoundException(title);
-    }
-    return tasks;
+    return tasks.length ? tasks : [];
   }
 
   async findOne(id: string): Promise<Task> {
@@ -44,26 +33,17 @@ export class TasksService {
 
   async findTasksForToday(): Promise<Task[]> {
     const tasks = await this.tasksRepository.findTasksForToday();
-    if (!tasks.length) {
-      throw new TasksForTodayNotFoundException();
-    }
-    return tasks;
+    return tasks.length ? tasks : [];
   }
 
   async findTasksForThisWeek(): Promise<Task[]> {
     const tasks = await this.tasksRepository.findTasksForThisWeek();
-    if (!tasks.length) {
-      throw new TasksForThisWeekNotFoundException();
-    }
-    return tasks;
+    return tasks.length ? tasks : [];
   }
 
   async findTasksForThisMonth(): Promise<Task[]> {
     const tasks = await this.tasksRepository.findTasksForThisMonth();
-    if (!tasks.length) {
-      throw new TasksForThisMonthNotFoundException();
-    }
-    return tasks;
+    return tasks.length ? tasks : [];
   }
 
   async update(id: string, data: UpdateTaskDto): Promise<Task> {
